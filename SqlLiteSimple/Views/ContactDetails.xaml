@@ -1,0 +1,194 @@
+﻿<Page
+    x:Class="SqlLiteSimple.Views.ContactDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SqlLiteSimple.Views"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+        xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Details, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" IsHitTestVisible="{Binding isHits, Mode=TwoWay}">
+
+        <Grid.Resources />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="220" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="12,17,0,28"
+            Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    VerticalAlignment="Center"
+                    Command="{Binding ClickEventCommand}"
+                    CommandParameter="{Binding BackButton}"
+                    Content="&#xE112;"
+                    FontFamily="Segoe Ui Symbol"
+                    FontSize="19"
+                    Style="{StaticResource RoundedButton}" />
+                <TextBlock
+                    Margin="9,-7,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    Text="Delete/Update contact"
+                    TextAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right">
+                <Button
+                    Width="95"
+                    Height="48"
+                    Margin="10,0,0,2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="Coral"
+                    Command="{Binding ClickEventCommand}"
+                    CommandParameter="{Binding SyncButton}"
+                    Content="&#xE117;"
+                    FontFamily="Segoe Ui Symbol"
+                    FontSize="19"
+                    Style="{StaticResource RoundedButton}" />
+            </StackPanel>
+
+        </StackPanel>
+
+
+        <Grid
+            x:Name="ContentPanel"
+            Grid.Row="1"
+            Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Name="EditView" Grid.Row="1">
+                <TextBox
+                    Name="Name"
+                    Margin="10"
+                    Header="Name"
+                    Text="{Binding Name, Mode=TwoWay}" />
+                <TextBox
+                    Name="Number"
+                    Margin="10"
+                    Header="Number"
+                    InputScope="Digits"
+                    MaxLength="10"
+                    Text="{Binding Number, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Margin="10"
+                        Command="{Binding UpdateCommand}"
+                        CommandParameter="{Binding}"
+                        Content="Update" />
+                    <Button
+                        Margin="10"
+                        Command="{Binding ClickEventCommand}"
+                        CommandParameter="{Binding CancleButton}"
+                        Content="Cancel" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="14*" />
+                <ColumnDefinition Width="361*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer
+                Grid.ColumnSpan="2"
+            x:Name="scrollViewer">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Loaded">
+                        <core:InvokeCommandAction Command="{Binding ScrollCommand,Mode=TwoWay}" CommandParameter="{Binding}">
+                        </core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>
+
+                    <!--<core:EventTriggerBehavior EventName="ViewChanged">
+                        <core:InvokeCommandAction Command="{Binding ScrollCommand,Mode=TwoWay}" CommandParameter="{Binding}">
+                        </core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>-->
+                </interactivity:Interaction.Behaviors>
+               
+               
+                
+                <ListView
+                 Grid.ColumnSpan="2"
+                x:Name="GridListView"
+                ItemsSource="{Binding ProductsListCollection, Mode=TwoWay}"
+                SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Height="50"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Background="{Binding Converter={StaticResource ListviewConverters}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Padding="5,0,0,0"
+                                FontSize="24"
+                                Foreground="Black"
+                                Text="{Binding ID}"
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Padding="5,0,0,0"
+                                FontSize="24"
+                                Foreground="Black"
+                                Text="{Binding PName}"
+                                TextAlignment="Center" />
+                                <TextBlock
+                                Grid.Column="2"
+                                Padding="5,0,0,0"
+                                FontSize="24"
+                                Foreground="Black"
+                                Text="{Binding Description}"
+                                TextAlignment="Center" />
+                            </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+          </ScrollViewer>
+        </Grid>
+        <ProgressRing
+            Grid.RowSpan="4"
+            Width="60"
+            Height="60"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsActive="{Binding IsProgress, Mode=TwoWay}"
+            Visibility="Visible">
+            <ProgressRing.RenderTransform>
+                <CompositeTransform ScaleX="-1" />
+            </ProgressRing.RenderTransform>
+        </ProgressRing>
+    </Grid>
+</Page>

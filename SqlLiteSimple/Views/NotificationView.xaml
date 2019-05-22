@@ -1,0 +1,289 @@
+﻿<Page
+    x:Class="SqlLiteSimple.Views.NotificationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:SqlLiteSimple.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Adding, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button
+                Grid.Row="0"
+                Command="{Binding GoBackCommand}"
+                CommandParameter="{Binding GoBack}"
+                Content="Go Back" />
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <GridView
+                        x:Name="GVPictures"
+                        Grid.Row="2"
+                        IsItemClickEnabled="True"
+                        ItemsSource="{Binding ImagesObservableCollections}">
+
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding ImageTappedCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+
+                                    <Ellipse Width="150" Height="150">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Image, Converter={StaticResource ByteToBitMapConvertor}}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+
+                                    <!--<Image Source="{Binding Image, Converter={StaticResource ByteToBitMapConvertor}}" />-->
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                    <!--<FlipView
+                        x:Name="flipviewGrid"
+                        Grid.Row="2"
+                        ItemsSource="{Binding ImagesObservableCollections}">
+                    -->
+                    <!--<interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding ItemClickImageCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>-->
+                    <!--
+                        <FlipView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Image, Converter={StaticResource ByteToBitMapConvertor}}" />
+                            </DataTemplate>
+                        </FlipView.ItemTemplate>
+                    </FlipView>-->
+                    <ContentDialog
+                        x:Name="ContenDialogBox"
+                        Title="Select Region"
+                        Width="700"
+                        IsEnabled="True"
+                        PrimaryButtonText="Save"
+                        Visibility="Visible">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Loaded">
+                                <core:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="{Binding ElementName=ContenDialogBox, Mode=TwoWay}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <Grid Height="150">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock FontSize="20" Text="Select a Region" />
+                                <ComboBox
+                                    Width="500"
+                                    FontSize="15"
+                                    PlaceholderText="Select Region">
+                                    <ComboBoxItem Height="50" Content="X" />
+                                    <ComboBoxItem Height="50" Content="Y" />
+                                    <ComboBoxItem Height="50" Content="Z" />
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+                    </ContentDialog>
+                </Grid>
+
+                <!--<GridView Grid.Row="0" ItemsSource="{Binding VideosObservableCollections}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <MediaPlayerElement
+                                    x:Name="mediaSimple"
+                                    Grid.RowSpan="4"
+                                    Width="400"
+                                    AutoPlay="True"
+                                    Source="{Binding Video}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>-->
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontSize="24"
+                        Text="Status : "
+                        TextAlignment="Center" />
+                    <!--<ComboBox
+                        Grid.Row="0"
+                        Foreground="Black"
+                        ItemsSource="{Binding NotificationsStatus, Mode=TwoWay}" />-->
+                    <TextBlock Grid.Row="1" Text="Upload Images :" />
+                    <ComboBox
+                        Name="MyComboBox"
+                        Grid.Row="0"
+                        Width="300">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="100">Please select a name</TextBlock>
+                                    <AutoSuggestBox
+                                        x:Name="asb"
+                                        Width="200"
+                                        Margin="0,24,0,24"
+                                        HorizontalAlignment="Left"
+                                        ItemsSource="{Binding NotificationsStatus}"
+                                        PlaceholderText="Type a name (e.g. John)"
+                                        QueryIcon="Find"
+                                        QuerySubmitted="asb_QuerySubmitted"
+                                        SuggestionChosen="asb_SuggestionChosen"
+                                        TextChanged="asb_TextChanged" />
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <AutoSuggestBox
+                        x:Name="txtAutoSuggestBox"
+                        Width="294"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        PlaceholderText="Search"
+                        QueryIcon="Find"
+                        QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                        SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                        TextChanged="AutoSuggestBox_TextChanged" />
+                    <Button
+                        Grid.Row="1"
+                        Background="Aquamarine"
+                        Command="{Binding AddPictureCommand}"
+                        Content="TapToUpload Images " />
+
+                    <TextBlock Grid.Row="2" Text="Upload Videos :" />
+                    <Button
+                        Grid.Row="2"
+                        Background="Aquamarine"
+                        Command="{Binding AddVideosCommand}"
+                        Content="TapToUpload Videos " />
+                    <RelativePanel Grid.Row="3">
+                        <TextBlock FontWeight="Bold" Text="Naveen" />
+                        <TextBlock
+                            Padding="0,20"
+                            FontWeight="Bold"
+                            Text="Naveen" />
+                    </RelativePanel>
+                </Grid>
+            </Grid>
+            <Button
+                x:Name="CameraButton"
+                Margin="162,0,0,0"
+                Padding="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="White"
+                Command="{Binding ClickEventCommand}"
+                CommandParameter="{Binding CameraButton}"
+                Content="&#xE114;"
+                FontFamily="Segoe Ui Symbol"
+                FontSize="19"
+                Style="{StaticResource RoundedButton}" />
+
+            <SplitView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Margin="0,0,-10,0"
+                DisplayMode="Inline"
+                IsPaneOpen="True"
+                OpenPaneLength="500"
+                PanePlacement="Right">
+                <SplitView.Pane>
+                    <Border BorderBrush="#005B92" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Grid.Column="0"
+                                    Margin="20,5,5,5"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Content="&#xE711;" />
+                                <Button
+                                    Grid.Column="2"
+                                    Width="100"
+                                    Margin="20,5,5,5"
+                                    VerticalAlignment="Center"
+                                    Background="red"
+                                    Command="{Binding SaveImageAnnotateCommand, Mode=TwoWay}"
+                                    CommandParameter="{Binding ElementName=ImageAnnotated, Mode=TwoWay}"
+                                    Content="Save" />
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="10,30,30,10">
+                                <Image x:Name="ImageAnnotated" Source="{Binding ImagePathForShow.Image, Converter={StaticResource ByteToBitMapConvertor}}" />
+
+                            </Grid>
+                            <Grid
+                                Name="parentGrid"
+                                Grid.Row="2"
+                                Width="500"
+                                Height="500">
+                                <Button
+                                    Width="200"
+                                    VerticalAlignment="Top"
+                                    Background="red"
+                                    Click="button_Click"
+                                    Content="SAVE" />
+                                <Image
+                                    x:Name="image"
+                                    Width="500"
+                                    Height="500"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Canvas.ZIndex="0"
+                                    RequestedTheme="Light"
+                                    Source="/Assets/NuStar_Energy_LP_logo.jpg" />
+                                <InkCanvas
+                                    Name="MyInkCanvas"
+                                    Width="500"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Canvas.ZIndex="5"
+                                    RequestedTheme="Light" />
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </SplitView.Pane>
+            </SplitView>
+        </Grid>
+    </Grid>
+</Page>

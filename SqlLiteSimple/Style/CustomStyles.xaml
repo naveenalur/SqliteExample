@@ -1,0 +1,500 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WEL.Mobile.DMS">
+
+    <!--  ******************* Common Styles *****************************  -->
+
+    <!--  Page Headrer Title Style  -->
+
+    <Style x:Key="HeaderTitleStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Foreground" Value="#FF0A1261" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <SolidColorBrush x:Key="HighlightBrush" Color="red" />
+    <Style x:Key="CommentTextBoxStyle" TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="{StaticResource HighlightBrush}" />
+        <Setter Property="Margin" Value="12" />
+    </Style>
+    <!--  Round Button Style  -->
+
+    <Style x:Key="RoundedButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Ellipse
+                            Name="Ellipse"
+                            Grid.Row="0"
+                            Width="45"
+                            Height="45"
+                            Fill="{TemplateBinding Background}"
+                            Stroke="Blue"
+                            StrokeThickness="2" />
+                        <ContentPresenter
+                            Name="Content"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            FontFamily="Segoe Ui Symbol"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="Green" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.7" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RoundedButtonSmall" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Ellipse
+                            Name="Ellipse"
+                            Grid.Row="0"
+                            Width="35"
+                            Height="35"
+                            Fill="{TemplateBinding Background}"
+                            Stroke="Red"
+                            StrokeThickness="2" />
+                        <ContentPresenter
+                            Name="Content"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            FontFamily="Segoe Ui Symbol"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="Red" />
+                        <!--<TextBlock
+                            Grid.Row="1"
+                            Margin="0,-2,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe Ui"
+                            FontSize="12"
+                            Foreground="White"
+                            Text="{TemplateBinding Tag}" />-->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.7" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="SearchButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Ellipse
+                            Name="Ellipse"
+                            Grid.Row="0"
+                            Width="35"
+                            Height="35"
+                            Fill="{TemplateBinding Background}"
+                            StrokeThickness="2" />
+                        <ContentPresenter
+                            Name="Content"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            FontFamily="Segoe Ui Symbol"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="ForestGreen" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SquareButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Rectangle
+                            Name="Ellipse"
+                            Grid.Row="0"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Fill="{TemplateBinding Background}"
+                            Stroke="White"
+                            StrokeThickness="{TemplateBinding BorderThickness}" />
+                        <ContentPresenter
+                            Name="Content"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            FontFamily="Segoe Ui Symbol"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.7" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Ellipse" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Content" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Common button style  -->
+    <Style x:Key="CommonButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ContentPresenter
+                            Name="Content"
+                            Grid.Row="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            FontFamily="Segoe Ui Symbol" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Search TextBox title Style  -->
+    <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="#FF0A1261" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+
+    <!--  ComboBox Style  -->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="#FF0A1261" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <!--<Setter Property="BorderBrush" Value="#003366" />-->
+    </Style>
+
+    <!--  Search TextBox Border Style  -->
+    <Style x:Key="SearchTextBoxBorderStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#FF0A1261" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!--  ListView Item Field Name / Value Styles  -->
+
+    <Style x:Key="ListViewItemLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="DocumentListViewItemLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="ListViewItemValueStyle" TargetType="TextBlock">
+
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="#011f4b" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style x:Key="ListViewItemValueStyleSmall" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="#011f4b" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style x:Key="ToggleSwitchStyle" TargetType="ToggleSwitch">
+        <Setter Property="Foreground" Value="Black" />
+    </Style>
+
+    <!--  General Text Label Style  -->
+    <Style x:Key="GeneralTextLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="#FF7F7F7F" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <!--  General Text Label Style  -->
+    <Style x:Key="ErrorTextLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <!--  General Text Value Style  -->
+    <Style x:Key="GeneralTextValueStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <!--  Header Radio Button Style  -->
+
+    <Style x:Key="HeaderRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="#FF0A1261" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <!--  ************************ Home Page Tiles Style ******************************  -->
+
+    <Style x:Key="TileStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid
+                        Width="200"
+                        Height="200"
+                        Margin="0">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="1"
+                            CornerRadius="6" />
+                        <ContentPresenter>
+                            <TextBlock
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="22"
+                                Foreground="White"
+                                SelectionHighlightColor="{TemplateBinding Foreground}"
+                                Text="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                TextWrapping="WrapWholeWords" />
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Home Page Print Tiles Style  -->
+
+    <Style x:Key="PrintTileStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid
+                        Width="200"
+                        Height="200"
+                        Margin="0">
+                        <Border
+                            Background="#003366"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="1"
+                            CornerRadius="6" />
+                        <ContentPresenter>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontFamily="Segoe UI Symbol"
+                                    FontSize="50"
+                                    Foreground="White"
+                                    Text="&#x2399;" />
+                                <TextBlock
+                                    Width="Auto"
+                                    Height="Auto"
+                                    HorizontalAlignment="Center"
+                                    FontFamily="Segoe UI Symbol"
+                                    FontSize="22"
+                                    Foreground="White"
+                                    SelectionHighlightColor="{TemplateBinding Foreground}"
+                                    Text="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ProductListItemStyle" TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="#EBFFFF" />
+    </Style>
+    <Style x:Key="CategoryListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="IsHoldingEnabled" Value="True" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Padding" Value="20,0,30,0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ListViewItemPresenter
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                        CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                        CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}"
+                        ContentMargin="0"
+                        ContentTransitions="{TemplateBinding ContentTransitions}"
+                        DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                        DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                        DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                        DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                        FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                        PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                        PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                        PointerOverBackgroundMargin="1"
+                        ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                        SelectedBackground="Black"
+                        SelectedBorderThickness="0"
+                        SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                        SelectedPointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                        SelectedPointerOverBorderBrush="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                        SelectionCheckMarkVisualEnabled="False" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DocumentListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="IsHoldingEnabled" Value="True" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Padding" Value="0,0,0,0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <ListViewItemPresenter
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                        CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                        CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}"
+                        ContentMargin="0"
+                        ContentTransitions="{TemplateBinding ContentTransitions}"
+                        DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                        DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                        DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                        DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                        FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                        PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                        PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                        PointerOverBackgroundMargin="1"
+                        ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                        SelectedBackground="#EDF2F4"
+                        SelectedBorderThickness="0"
+                        SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                        SelectedPointerOverBackground="#EDF2F4"
+                        SelectedPointerOverBorderBrush="#EDF2F4"
+                        SelectionCheckMarkVisualEnabled="False" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ContentGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="White" />
+    </Style>
+    <SolidColorBrush x:Key="ProgressBarIndeterminateForegroundThemeBrush" Color="#00A8E9" />
+</ResourceDictionary>
